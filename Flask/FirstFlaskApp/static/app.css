@@ -1,0 +1,33 @@
+h1 {
+    color: purlpe;
+}
+
+body {
+    background-color: tan;
+    padding: 0;
+    margin: 0
+}
+
+#content {
+    margin: 20px;
+
+}
+
+.navbar {
+    background-color: black;
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}

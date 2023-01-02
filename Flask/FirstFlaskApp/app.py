@@ -1,18 +1,24 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
+from random import randint, choice, sample
+from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = "keepitsecret"
+debug = DebugToolbarExtension(app)
 
 
 @app.route("/")
 def home_page():
-    html = "<html><body> <h1>Home Page</h1> <p>Welcome to my simple app!</p><a href='/hello'>Go to hello page</a></body></html>"
-    return html
+    return render_template("home.html")
 
 
 @app.route('/hello')
 def say_hello():
-    html = "<html><body><h1>Hello there!</h1><a href='/'>Go to home page</a></body></html>"
-    return html
+    # html = "<html><body><h1>Hello there!</h1><a href='/'>Go to home page</a></body></html>"
+    # return html
+    """Returns template"""
+    return render_template("hello.html")
 
 
 @app.route('/goodbye')
@@ -86,3 +92,51 @@ def find_post(id):
     """Show post with given integer"""
     post = POSTS.get(id, "Post not found")
     return f"<p>{post}</p>"
+
+
+# USING TEMPLATES
+
+
+@app.route("/lucky")
+def show_lucky_num():
+    """Example of simple dynamic template"""
+    num = randint(1, 10)
+    return render_template("lucky.html", luckynum=num, msg="You are so lucky!")
+
+# GREETER EXAMPLE
+
+
+@app.route("/form")
+def show_form():
+    return render_template("form.html")
+
+
+@app.route("/form-2")
+def show_form_2():
+    return render_template("form_2.html")
+
+
+COMPLIMENTS = ["cool", "clever", "tenacious", "awesome", "legit"]
+
+
+@app.route("/greet")
+def get_greeting():
+    username = request.args["username"]
+    nice_thing = choice(COMPLIMENTS)
+    return render_template("greet.html", username=username, compliment=nice_thing)
+
+
+@app.route("/greet-2")
+def get_greeting_2():
+    username = request.args["username"]
+    wants = request.args.get("wants_compliments")
+    nice_things = sample(COMPLIMENTS, 3)
+    return render_template("greet_2.html", username=username, wants_compliments=wants, compliments=nice_things)
+
+# USING LOOPS
+
+
+@app.route("/spell/<word>")
+def spell_word(word):
+    caps_word = word.upper()
+    return render_template("spell_word.html", word=caps_word)

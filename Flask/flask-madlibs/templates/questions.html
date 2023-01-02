@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madlib Questions</title>
+</head>
+
+<body>
+    <h1>Questions for {{ title }}</h1>
+    <form action="/story">
+        {% for prompt in prompts %}
+        <p>{{ prompt }}: <input type="text" name="{{ prompt }}"></p>
+        {% endfor %}
+        <input type="hidden" name="story_id" value="{{ story_id }}">
+        <button>See Your Story!</button>
+    </form>
+</body>
+
+</html>

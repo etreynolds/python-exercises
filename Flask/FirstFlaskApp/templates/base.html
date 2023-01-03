@@ -15,8 +15,19 @@
         <a href="/form">Greet V1</a>
         <a href="/form-2">Greet V2 2</a>
         <a href="/lucky">Lucky</a>
+        <a href="/movies">Movies</a>
     </nav>
+
     <main id="content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <section class="messages">
+            {% for category,msg in messages %}
+            <p class="{{category}}">{{ msg }}</p>
+            {% endfor %}
+        </section>
+        {% endif %}
+        {% endwith %}
         {% block content %} {% endblock %}
 
     </main>

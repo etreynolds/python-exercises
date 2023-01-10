@@ -1,0 +1,14 @@
+.board {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 200%;
+}
+
+.board td {
+    font-size: 2em;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 10%;
+    width: 1.2em;
+    height: 1.2em;
+}

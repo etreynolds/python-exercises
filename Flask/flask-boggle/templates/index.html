@@ -12,25 +12,30 @@
 <body>
     <section id="boggle">
         <h1>Let's Play Boggle!</h1>
-
-        <table class="board">
-            <tbody>
-                {% for row in board %}
-                <tr>
-                    {% for cell in row %}
-                    <td>{{ cell }}</td>
+        <div class="text-container">
+            <p>Times Played: {{ numplays }}</p>
+            <p>High Score: {{ highscore }}</p>
+        </div>
+        <div class="container">
+            <table class="board">
+                <tbody>
+                    {% for row in board %}
+                    <tr>
+                        {% for cell in row %}
+                        <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
                     {% endfor %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table><br>
-
+                </tbody>
+            </table><br>
+        </div>
         <form action="">
             <input type="text" autofocus>
             <button>Check Word</button>
         </form>
 
         <div class="text-container">
+            <p id="time-par">Time remaining = <span id="timer"></span> sec </p>
             <p id="score">Score: 0</p>
             <p id="response"></p>
         </div>

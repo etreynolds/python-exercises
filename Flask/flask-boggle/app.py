@@ -18,7 +18,11 @@ def show_homepage():
     board = boggle_game.make_board()
     session['board'] = board
 
-    return render_template("index.html", board=board)
+    # Get high score from session to display in DOM. If no high score, show 0
+    highscore = session.get("highscore", 0)
+    numplays = session.get("numplays", 0)
+
+    return render_template("index.html", board=board, highscore=highscore, numplays=numplays)
 
 
 @app.route("/check-word")
@@ -31,3 +35,16 @@ def check_word():
     # this variable will be one of the three strings: "ok", "not-a-word", or "not-on-board"
 
     return jsonify({'response': response_string})
+
+
+@app.route("/end-game", methods=["POST"])
+def end_game():
+    """Get axios POST (score) from endgame function and update high score in session"""
+    score = request.json["score"]
+    # get current high score from session. if no high score in session set variable to 0
+    highscore = session.get("highscore", 0)
+    numplays = session.get("numplays", 0)
+    # update high score in session
+    session["highscore"] = max(score, highscore)
+    session["numplays"] = numplays + 1
+    return "game over"
